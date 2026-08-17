@@ -16,7 +16,7 @@ const NAV = [
   { id: "stuck", label: "6 · When you get stuck" },
 ];
 
-const TOTAL_STEPS = 16;
+const TOTAL_STEPS = 17;
 
 export default function Page() {
   return (
@@ -343,22 +343,62 @@ export default function Page() {
               </p>
             }
           >
-            <Step id="s9" number="9" title="Word documents → a folder on your Desktop" time="5 min">
+            <Step id="s9" number="9" title="Word documents → one folder on your Desktop" time="10 min">
+              <p>
+                <strong>You are collecting copies, not moving anything.</strong> Your originals stay
+                exactly where they are. It doesn&rsquo;t matter how many there are — 40 or 4,000 —
+                and it doesn&rsquo;t matter how messy the names or folders are.
+              </p>
               <Ol>
-                <li>On your Desktop, make a new folder called <span className="path">My Writing</span>, and inside it a folder called <span className="path">Word</span>.</li>
                 <li>
-                  Find your Word files (<span className="path">.docx</span> and older{" "}
-                  <span className="path">.doc</span>) — in Documents, on an external drive, in
-                  email attachments, in OneDrive or iCloud — and <strong>copy</strong> them into{" "}
-                  <span className="path">My Writing → Word</span>. Copy, don&rsquo;t move, so your
-                  originals stay where they were.
+                  On your Desktop, right-click an empty spot → <span className="ui">New Folder</span>.
+                  Name it <span className="path">My Writing</span>. Open it and make a folder
+                  inside called <span className="path">Word</span>.
                 </li>
-                <li>Subfolders and messy names are fine. Duplicates are fine.</li>
+                <li>
+                  <strong>Find every Word file on the Mac in one go:</strong> open a new Finder
+                  window, press <kbd>⌘</kbd>+<kbd>F</kbd>. In the search bar that appears, make sure{" "}
+                  <span className="ui">This Mac</span> is selected (not just the current folder).
+                  In the row of filters, change <span className="ui">Kind</span> → <span className="ui">Document</span>,
+                  and in the box beside it choose <span className="ui">Word</span>. The list fills
+                  with every Word document on the computer.
+                </li>
+                <li>
+                  Click any file in the list, press <kbd>⌘</kbd>+<kbd>A</kbd> (select all), then{" "}
+                  <kbd>⌘</kbd>+<kbd>C</kbd> (copy).
+                </li>
+                <li>
+                  Open <span className="path">Desktop → My Writing → Word</span> and press{" "}
+                  <kbd>⌘</kbd>+<kbd>V</kbd> (paste). Wait for the copy to finish — a progress bar
+                  shows for large batches.
+                </li>
+                <li>
+                  Files on an external drive, in a Dropbox/OneDrive/iCloud folder, or attached to
+                  old emails? Repeat: find them, copy, paste into the same{" "}
+                  <span className="path">Word</span> folder. Duplicates are fine.
+                </li>
+                <li>
+                  <strong>Note the count.</strong> Click once on the <span className="path">Word</span>{" "}
+                  folder and press <kbd>⌘</kbd>+<kbd>I</kbd>. Under &ldquo;General&rdquo; it says
+                  how many items are inside (e.g. <em>2,314 items</em>). Write that number down —
+                  you&rsquo;ll check it against Claude&rsquo;s count in step 12.
+                </li>
               </Ol>
-              <Callout tone="tip">
-                Not sure where they all are? On a Mac, open Finder, press <kbd>⌘</kbd>+<kbd>F</kbd>,
-                set the search to <em>Kind is Document → Word</em> and it lists every Word file on
-                the machine. Select all, copy, paste into the folder.
+              <Callout tone="note" title="Old .doc files">
+                Word files from before ~2007 end in <span className="path">.doc</span> instead of{" "}
+                <span className="path">.docx</span>. Include them — Claude handles the conversion
+                in step 13. You don&rsquo;t need to do anything different.
+              </Callout>
+              <Callout tone="warn" title="Files with a little cloud icon">
+                If a file shows a cloud symbol next to its name, it lives online (iCloud/OneDrive
+                &ldquo;optimize storage&rdquo;) and isn&rsquo;t on the disk yet. Copying it triggers a
+                download; give the paste time to finish before moving on. If a batch seems stuck,
+                wait a few minutes rather than cancelling.
+              </Callout>
+              <Callout tone="tip" title="On Windows">
+                In File Explorer, click in the search box (top right) and type{" "}
+                <span className="path">kind:document ext:docx OR ext:doc</span>. Select all
+                (<kbd>Ctrl</kbd>+<kbd>A</kbd>), copy, paste into <span className="path">My Writing → Word</span>.
               </Callout>
             </Step>
 
@@ -410,17 +450,44 @@ export default function Page() {
               </Callout>
             </Step>
 
-            <Step id="s11" number="11" title="Drop the whole folder into the vault’s inbox" time="1 min">
+            <Step id="s11" number="11" title="Drop the whole folder into the vault’s inbox" time="2 min">
               <p>
-                In Finder, open <span className="path">Documents → Writing Vault → vault → 01_INBOX → To Process</span>.
-                Drag your Desktop <span className="path">My Writing</span> folder into it. That&rsquo;s
-                the vault&rsquo;s &ldquo;in tray&rdquo; — everything Claude processes starts here.
+                The vault has an &ldquo;in tray&rdquo; folder called <span className="path">To Process</span>.
+                Everything Claude works on starts there. It&rsquo;s buried a few folders deep, so
+                let Obsidian open it for you instead of hunting for it:
               </p>
-              <p>
-                Flip over to Obsidian: you&rsquo;ll see <span className="path">My Writing</span> now
-                appears under 01_INBOX. Word files won&rsquo;t open in Obsidian yet (it reads plain
-                text). That&rsquo;s the next step.
-              </p>
+              <Ol>
+                <li>
+                  In Obsidian&rsquo;s left sidebar, expand <span className="path">vault → 01_INBOX</span>{" "}
+                  and <strong>right-click</strong> the <span className="path">To Process</span> folder.
+                </li>
+                <li>
+                  Choose <span className="ui">Show in system explorer</span> (on a Mac it may read{" "}
+                  <span className="ui">Reveal in Finder</span>). A Finder window opens with{" "}
+                  <span className="path">To Process</span> highlighted.
+                </li>
+                <li>
+                  Double-click <span className="path">To Process</span> so you&rsquo;re inside it (the
+                  window will look empty or nearly empty — that&rsquo;s right).
+                </li>
+                <li>
+                  Drag the <span className="path">My Writing</span> folder from your Desktop into
+                  that window. It moves off the Desktop and into the vault. Done.
+                </li>
+                <li>
+                  Look at Obsidian: <span className="path">My Writing</span> now shows under{" "}
+                  <span className="path">01_INBOX → To Process</span>. The Word files inside
+                  won&rsquo;t open in Obsidian yet — it only reads plain text — which is exactly what
+                  the next phase fixes.
+                </li>
+              </Ol>
+              <Callout tone="tip" title="Thousands of files? Do it in rounds">
+                Everything works with one giant folder, but if you have more than ~500 documents
+                you may find it calmer to drag in one chunk at a time — for example{" "}
+                <span className="path">Word</span> first, run the prompts in Phase 4, then come back
+                and drag in <span className="path">Google</span>. The conversion prompt in step 13
+                is safe to run again and again: it only touches what&rsquo;s still in the inbox.
+              </Callout>
             </Step>
           </Section>
 
@@ -431,39 +498,72 @@ export default function Page() {
             title="Bring the writing into the vault"
             intro={
               <p>
-                Three prompts. Copy each one into Claude (the Code tab, Writing Vault selected),
-                press Enter, and let it run. Read what it reports back before moving to the next.
+                Four prompts, in order. Copy each one into Claude (the Code tab, Writing Vault
+                selected), press Enter, and let it run. Read what it reports back before moving to
+                the next.
               </p>
             }
           >
-            <Step id="s12" number="12" title="Prompt 1 — convert everything to plain text and file it" time="Claude: 10–60 min">
+            <Step id="s12" number="12" title="Prompt 0 — check that everything arrived" time="Claude: 1 min">
+              <p>
+                Before converting anything, have Claude count what&rsquo;s in the inbox and compare
+                it to the number you wrote down in step 9. This catches a half-finished copy or a
+                folder dropped in the wrong place <em>before</em> an hour of work is built on it.
+              </p>
+              <Prompt>
+                {`Look inside vault/01_INBOX/To Process/My Writing and tell me what's there. I want:
+- how many .docx files, how many .doc files, and how many other files (by type), for each subfolder
+- the total number of Word documents
+- the oldest and newest file dates you can see
+Don't change, move, or convert anything yet — just report.`}
+              </Prompt>
+              <p>
+                Does the Word total roughly match your count from step 9? If it&rsquo;s way off,
+                the copy probably didn&rsquo;t finish or the folder went somewhere else — tell
+                Claude: <em>&ldquo;I expected about 2,300 Word files. Help me figure out where the
+                rest are.&rdquo;</em> If it matches (give or take a few), carry on.
+              </p>
+            </Step>
+
+            <Step id="s13" number="13" title="Prompt 1 — convert everything to plain text and file it" time="Claude: 10–90 min">
               <p>
                 Word and Google files are locked-up formats. This asks Claude to turn each one into
                 a plain-text Markdown file (which Obsidian can search) while keeping every original
-                untouched.
+                untouched. It&rsquo;s the longest-running step; the batch reports let you watch it
+                move.
               </p>
               <Prompt>
-                {`In vault/01_INBOX/To Process/My Writing there are Word documents (.docx and .doc) and a Google Takeout export of my Google Docs (also .docx). This is years of my writing.
+                {`In vault/01_INBOX/To Process/My Writing there are Word documents (.docx, and possibly older .doc files) and a Google Takeout export of my Google Docs (also .docx). This is years of my writing.
 
 Please:
-1. Convert every document to a Markdown (.md) file. If you need a tool like pandoc to do that well, tell me what you're installing and why, then install it.
+1. Convert every document to a Markdown (.md) file. For .docx use pandoc — tell me you're installing it, then install it. For old .doc files, use the Mac's built-in textutil command to convert them to .docx first (on Windows, install LibreOffice and use it) — again, tell me before installing anything.
 2. Keep each file's original title as its filename.
 3. At the top of each .md file add frontmatter with: title, date (best guess from the file's dates or the text itself), word_count, source (word or google), and original_path.
 4. File the .md files in vault/02_SOURCES/Writing/, in subfolders by year (put anything undated in vault/02_SOURCES/Writing/undated/).
 5. Move the untouched originals into vault/02_SOURCES/Writing/_originals/ so nothing is lost. Do not modify or delete any original.
-6. Skip anything that isn't my writing (spreadsheets, PDFs, images) — just list what you skipped.
-7. Work in batches of about 25 files and give me a one-line progress report after each batch.
+6. Skip anything that isn't my writing (spreadsheets, PDFs, images) — move those to vault/01_INBOX/To Process/_skipped/ and list them.
+7. Work in batches of about 25 files and give me a one-line progress report after each batch: "Batch 12 done — 300 of 2,314 converted."
+8. If I run this again later with new files in the inbox, only process what's still in the inbox — never redo files that are already in 02_SOURCES/Writing/.
 
-When you're done, tell me: how many files you converted, how many you skipped, and any you couldn't read.`}
+When you're done, tell me: how many files you converted, how many you skipped, and any you couldn't read. Then confirm the inbox folder is empty.`}
               </Prompt>
-              <Callout tone="tip">
-                This can take a while with hundreds of files. You can leave the app open and go
-                do something else. If Claude stops and asks a question, answer it and it continues.
-                If it stops without finishing, type <em>&ldquo;keep going&rdquo;</em>.
+              <Callout tone="tip" title="While it runs">
+                Leave the app open and go do something else. If Claude stops to ask a question
+                (usually &ldquo;OK to install pandoc?&rdquo;), answer it and it continues. If it
+                stops without finishing, type <em>&ldquo;keep going&rdquo;</em>. If it says it hit a
+                usage limit, wait for the reset time it gives you, then <em>&ldquo;keep going&rdquo;</em> —
+                it picks up where it left off because it only processes what&rsquo;s still in the
+                inbox.
+              </Callout>
+              <Callout tone="tip" title="How you know it worked">
+                In Obsidian, expand <span className="path">vault → 02_SOURCES → Writing</span>. You
+                should see year folders, and inside them your pieces as ordinary readable notes.
+                Click one. If it opens and reads like your document, you&rsquo;re done. The Word
+                originals are safe in <span className="path">_originals</span>.
               </Callout>
             </Step>
 
-            <Step id="s13" number="13" title="Prompt 2 — build an index of every piece" time="Claude: 10–30 min">
+            <Step id="s14" number="14" title="Prompt 2 — build an index of every piece" time="Claude: 10–30 min">
               <p>
                 Now you have hundreds of clean files. This creates one page that lists all of them
                 with dates, topics, and a one-line summary — the table of contents for your life&rsquo;s
@@ -482,7 +582,7 @@ Also add tags to each source file's frontmatter (a "tags:" list) using a consist
               </p>
             </Step>
 
-            <Step id="s14" number="14" title="Prompt 3 — let the vault find your themes" time="Claude: 15–45 min">
+            <Step id="s15" number="15" title="Prompt 3 — let the vault find your themes" time="Claude: 15–45 min">
               <p>
                 This is where it stops being a filing cabinet. The kit ships with skills for
                 exactly this: <span className="path">/diarize</span> builds a page about one subject
@@ -517,7 +617,7 @@ Finally, run /emerge once and tell me what patterns you found that I might not h
               </p>
             }
           >
-            <Step id="s15" number="15" title="Searching in Obsidian (instant, visual)" time="ongoing">
+            <Step id="s16" number="16" title="Searching in Obsidian (instant, visual)" time="ongoing">
               <Ul>
                 <li>
                   <kbd>⌘</kbd>+<kbd>⇧</kbd>+<kbd>F</kbd> — search the words inside every file.
@@ -546,7 +646,7 @@ Finally, run /emerge once and tell me what patterns you found that I might not h
               </Links>
             </Step>
 
-            <Step id="s16" number="16" title="Asking Claude (when you want thinking, not just matching)" time="ongoing">
+            <Step id="s17" number="17" title="Asking Claude (when you want thinking, not just matching)" time="ongoing">
               <p>
                 Open Claude (Code tab, Writing Vault) and ask in ordinary language. It reads the
                 relevant files before answering, and it can make new pages for you. Some starters:
