@@ -14,3 +14,5 @@ mined for topics.
 pnpm install
 pnpm dev
 ```
+
+Live: https://obsidian-claude-guide.vercel.app
