@@ -32,8 +32,9 @@ export default function Page() {
         <p className="mt-5 text-lg leading-relaxed text-ink-soft">
           Step by step, from a blank laptop to a private library of every Word and Google Doc
           you&rsquo;ve ever written — one you can search, sort by date or topic, and ask
-          questions of in plain English. No coding. About an hour of setup, then Claude does the
-          heavy lifting.
+          questions of in plain English. No coding, nothing to install beyond two apps. About an
+          hour of setup, then Claude does the heavy lifting. Every prompt on this page has been run
+          end-to-end on a test archive.
         </p>
         <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-ink-soft">
           <ProgressBar total={TOTAL_STEPS} />
@@ -186,19 +187,28 @@ export default function Page() {
               </Links>
             </Step>
 
-            <Step id="s4" number="4" title="Python 3 (Mac: already there · Windows: 3 min)" time="0–3 min">
+            <Step id="s4" number="4" title="Python and git — nothing to install, but read this" time="1 min">
               <p>
-                Some of the vault&rsquo;s helper tools are small Python scripts. <strong>On a Mac,
-                Python is already installed</strong> — skip this step. On Windows, install it from
-                python.org and, on the first screen of the installer, tick{" "}
-                <span className="ui">Add python.exe to PATH</span> before clicking Install.
+                The vault uses two small helpers that come with your computer: <strong>Python</strong>{" "}
+                (for the conversion) and <strong>git</strong> (the undo history). On a Mac you don&rsquo;t
+                install anything. But the <em>first</em> time Claude uses one of them, macOS may show
+                a pop-up:
               </p>
+              <Callout tone="warn" title="If you see “…requires the command line developer tools. Would you like to install the tools now?”">
+                Click <span className="ui">Install</span>, agree to the license, and wait — it takes
+                5–10 minutes and installs quietly. When it finishes, tell Claude{" "}
+                <em>&ldquo;done, try again.&rdquo;</em> This happens once per computer, and only on
+                Macs that have never been used for anything technical.
+              </Callout>
               <p>
-                If any of that goes wrong, don&rsquo;t fight it. In step 8 you can just tell Claude
-                &ldquo;install Python for me&rdquo; and it will.
+                On Windows, install Python from python.org (tick{" "}
+                <span className="ui">Add python.exe to PATH</span> on the first installer screen) and
+                Git for Windows — the Claude app&rsquo;s Code tab needs it. If either goes wrong,
+                don&rsquo;t fight it: in step 8 you can tell Claude &ldquo;install it for me.&rdquo;
               </p>
               <Links>
                 <LinkButton href="https://www.python.org/downloads/">Python for Windows</LinkButton>
+                <LinkButton href="https://git-scm.com/downloads/win">Git for Windows</LinkButton>
               </Links>
             </Step>
           </Section>
@@ -210,8 +220,10 @@ export default function Page() {
             title="Set up the vault and connect both apps to it"
             intro={
               <p>
-                You&rsquo;ll download a ready-made folder, put it somewhere sensible, then open that
-                same folder in Obsidian and in Claude.
+                You&rsquo;ll download a ready-made folder, put it in Documents, then open it in
+                Obsidian and in Claude. One thing to know up front: the download is a folder{" "}
+                <em>with a folder inside it</em>. Obsidian opens the inner one; Claude opens the
+                outer one. Both steps below say exactly which.
               </p>
             }
           >
@@ -226,16 +238,24 @@ export default function Page() {
                   Drag that folder into your <span className="ui">Documents</span> folder.
                 </li>
                 <li>
-                  Rename it to something that&rsquo;s yours — for example{" "}
-                  <span className="path">Writing Vault</span>. (Click the name once, wait, type.)
+                  Rename it to something that&rsquo;s yours — this guide calls it{" "}
+                  <span className="path">Writing Vault</span>. (Click the name once, wait a second,
+                  type, press Return.)
                 </li>
               </Ol>
-              <p>
-                That folder <em>is</em> your vault. Inside it you&rsquo;ll see a{" "}
-                <span className="path">vault</span> subfolder with numbered folders (00_HOME,
-                01_INBOX, 02_SOURCES…), a <span className="path">tools</span> folder, and a few
-                guide files like <span className="path">RECIPES.md</span>. Leave it all as is.
-              </p>
+              <p>Open it and look inside. You&rsquo;ll see:</p>
+              <Ul>
+                <li>
+                  a folder called <span className="path">vault</span> — <strong>this is your
+                  library</strong>: numbered folders 00_HOME, 01_INBOX, 02_SOURCES and so on. Your
+                  writing will live in here.
+                </li>
+                <li>
+                  a folder called <span className="path">tools</span>, and a few guide files like{" "}
+                  <span className="path">RECIPES.md</span> — helpers and manuals for Claude.
+                </li>
+              </Ul>
+              <p>Leave everything exactly where it is.</p>
               <Links>
                 <LinkButton href={KIT_ZIP} primary>
                   Download the vault kit (.zip)
@@ -249,27 +269,34 @@ export default function Page() {
               </Callout>
             </Step>
 
-            <Step id="s6" number="6" title="Open the folder in Obsidian" time="3 min">
+            <Step id="s6" number="6" title="Open the inner “vault” folder in Obsidian" time="3 min">
               <Ol>
                 <li>Open Obsidian.</li>
                 <li>
                   On the welcome screen click <span className="ui">Open folder as vault</span> (or{" "}
-                  <span className="ui">Open</span> next to &ldquo;Open folder as vault&rdquo;).
+                  the <span className="ui">Open</span> button next to it).
                 </li>
                 <li>
-                  Choose <span className="path">Documents → Writing Vault</span> and click Open.
+                  Navigate to <span className="path">Documents → Writing Vault → vault</span>{" "}
+                  — click <strong>the inner folder called <span className="path">vault</span></strong>{" "}
+                  — and click Open.
                 </li>
                 <li>
                   If Obsidian asks about &ldquo;restricted mode&rdquo; or trusting the author,
                   choose <span className="ui">Trust author and enable plugins</span>. The kit is
-                  open source and safe.
+                  open source and safe. (It may not ask at all.)
                 </li>
               </Ol>
               <p>
-                You should now see the folder tree down the left side. Click{" "}
-                <span className="path">vault → 00_HOME → Start Here</span> to have a look. Don&rsquo;t
-                worry about understanding it all yet.
+                You should now see the numbered folders down the left side. Click{" "}
+                <span className="path">00_HOME → Start Here</span> to have a look. Don&rsquo;t worry
+                about understanding it all yet.
               </p>
+              <Callout tone="why" title="Why the inner folder">
+                The kit&rsquo;s Obsidian settings live inside <span className="path">vault</span>, and
+                the links Claude writes between pages assume <span className="path">vault</span> is
+                the top. Open the outer folder instead and those links won&rsquo;t connect.
+              </Callout>
               <Callout tone="tip">
                 Two Obsidian shortcuts worth learning now: <kbd>⌘</kbd>+<kbd>O</kbd> opens any
                 file by name, and <kbd>⌘</kbd>+<kbd>⇧</kbd>+<kbd>F</kbd> searches the text of
@@ -277,23 +304,27 @@ export default function Page() {
               </Callout>
             </Step>
 
-            <Step id="s7" number="7" title="Open the same folder in Claude" time="3 min">
+            <Step id="s7" number="7" title="Open the outer “Writing Vault” folder in Claude" time="3 min">
               <Ol>
                 <li>Open the Claude desktop app and click the <span className="ui">Code</span> tab at the top.</li>
                 <li>
-                  It will ask which folder to work in (a button like <span className="ui">Open folder</span>{" "}
-                  or <span className="ui">Choose project</span>). Pick{" "}
-                  <span className="path">Documents → Writing Vault</span> — the very same folder.
+                  In the area where you type, there are a few settings. Make sure Environment is{" "}
+                  <span className="ui">Local</span>. Then click the <span className="ui">Project folder</span>{" "}
+                  selector and choose <span className="path">Documents → Writing Vault</span> — the{" "}
+                  <strong>outer</strong> folder this time, the one that contains{" "}
+                  <span className="path">vault</span> and <span className="path">tools</span>.
                 </li>
                 <li>
-                  You&rsquo;ll see a chat box with your folder name shown somewhere near it. That
-                  means Claude is &ldquo;standing inside&rdquo; your vault.
+                  You&rsquo;ll see &ldquo;Writing Vault&rdquo; shown near the chat box. That means
+                  Claude is standing inside your folder.
                 </li>
               </Ol>
-              <Callout tone="note">
-                From now on, every time you open Claude to work on your writing, make sure it&rsquo;s
-                on the <span className="ui">Code</span> tab with <em>Writing Vault</em> selected.
-                Claude only sees the folder it&rsquo;s pointed at.
+              <Callout tone="note" title="Two different folders — on purpose">
+                Obsidian: the inner <span className="path">vault</span>. Claude: the outer{" "}
+                <span className="path">Writing Vault</span>. Claude needs the outer one so it can see
+                its own instructions and tools; Obsidian needs the inner one so page links work.
+                Every time you come back, check that Claude is on the <span className="ui">Code</span>{" "}
+                tab with <em>Writing Vault</em> selected — it only sees the folder it&rsquo;s pointed at.
               </Callout>
             </Step>
 
@@ -310,23 +341,45 @@ export default function Page() {
               </p>
               <Prompt>{`let's go`}</Prompt>
               <p>
-                Claude will walk you through a short conversation: your name, what you do, what
-                you want the vault for. Answer in your own words — something like <em>&ldquo;I&rsquo;m a
-                writer. This vault is going to hold years of my essays and drafts from Word and
-                Google Docs so I can search them and find the themes.&rdquo;</em> It uses this to
-                personalize the folder.
+                Claude now walks you through a short conversation, one question at a time. Here is
+                what it will ask and what to say. Use your own words — these are just shapes:
               </p>
+              <Ol>
+                <li>
+                  <strong>&ldquo;What&rsquo;s your name, and what do you do?&rdquo;</strong> — e.g.{" "}
+                  <em>&ldquo;My name is ___. I&rsquo;m a writer — essays and personal nonfiction.
+                  This vault is going to hold about fifteen years of my writing from Word and Google
+                  Docs so I can search it and find the themes.&rdquo;</em>
+                </li>
+                <li>
+                  <strong>&ldquo;What raw material do you have?&rdquo;</strong> — e.g.{" "}
+                  <em>&ldquo;Mostly Word documents and Google Docs — hundreds of essays and drafts.
+                  Not much else.&rdquo;</em>
+                </li>
+                <li>
+                  <strong>&ldquo;Drop ONE file into the inbox and I&rsquo;ll ingest it.&rdquo;</strong>{" "}
+                  — this is the one place to steer it. Don&rsquo;t drop a single file; paste this
+                  instead:
+                </li>
+              </Ol>
+              <Prompt>
+                {`I'm going to bring my whole archive in as one big batch in a moment, following a guide. Please skip the single-file step, set up git now, and tell me when you're ready for the batch.`}
+              </Prompt>
               <p>
-                Along the way Claude will offer to <strong>set up git</strong> — say yes. Git is an
-                invisible undo history for the whole folder; it means nothing you do later is
-                unrecoverable.
+                Claude sets up <strong>git</strong> (the invisible undo history for the whole
+                folder — it means nothing you do later is unrecoverable) and says it&rsquo;s ready.
+                That&rsquo;s the end of setup.
               </p>
               <Callout tone="warn" title="About permission pop-ups">
                 Claude asks before it changes anything on your computer — you&rsquo;ll see prompts
-                like <em>&ldquo;Allow Claude to create this file?&rdquo;</em> or <em>&ldquo;Allow
+                like <em>&ldquo;Allow Claude to edit this file?&rdquo;</em> or <em>&ldquo;Allow
                 Claude to run this command?&rdquo;</em>. During setup and ingesting, it&rsquo;s fine
                 to allow them; that&rsquo;s the work you asked for. If one ever confuses you, just
                 type &ldquo;What is that going to do?&rdquo; before you click.
+              </Callout>
+              <Callout tone="note" title="If a macOS window pops up about “command line developer tools”">
+                That&rsquo;s the one-time install from step 4. Click <span className="ui">Install</span>,
+                wait for it to finish, then tell Claude &ldquo;done, try again.&rdquo;
               </Callout>
             </Step>
           </Section>
@@ -381,7 +434,8 @@ export default function Page() {
                   <strong>Note the count.</strong> Click once on the <span className="path">Word</span>{" "}
                   folder and press <kbd>⌘</kbd>+<kbd>I</kbd>. Under &ldquo;General&rdquo; it says
                   how many items are inside (e.g. <em>2,314 items</em>). Write that number down —
-                  you&rsquo;ll check it against Claude&rsquo;s count in step 12.
+                  in step 12 you&rsquo;ll check it against Claude&rsquo;s count. (Finder counts
+                  folders and non-Word files too, so expect &ldquo;close&rdquo;, not exact.)
                 </li>
               </Ol>
               <Callout tone="note" title="Old .doc files">
@@ -408,7 +462,11 @@ export default function Page() {
                 way to get years of Docs out at once.
               </p>
               <Ol>
-                <li>Go to Google Takeout and sign in to the Google account that has your Docs.</li>
+                <li>
+                  Go to Google Takeout. Even if you&rsquo;re already logged in, Google shows a{" "}
+                  <span className="ui">Verify it&rsquo;s you</span> screen and asks for your password
+                  again — that&rsquo;s normal for Takeout. Sign in to the account that has your Docs.
+                </li>
                 <li>Click <span className="ui">Deselect all</span> at the top of the list.</li>
                 <li>
                   Scroll to <span className="ui">Drive</span> and tick its box.
@@ -419,12 +477,14 @@ export default function Page() {
                   default). Click OK.
                 </li>
                 <li>
-                  Optional: click <span className="ui">All Drive data included</span> to pick only
-                  the folders that hold your writing. If your writing is everywhere, leave it.
+                  Optional: click <span className="ui">All Drive data included</span> (may just say{" "}
+                  <span className="ui">All data included</span>) to pick only the folders that hold
+                  your writing. If your writing is everywhere, leave it.
                 </li>
                 <li>Scroll to the bottom, click <span className="ui">Next step</span>.</li>
                 <li>
-                  Leave &ldquo;Send download link via email&rdquo; and &ldquo;Export once&rdquo;.
+                  Leave &ldquo;Send download link via email&rdquo; and &ldquo;Export once&rdquo; (a
+                  one-time archive).
                   Set file size to <span className="ui">4 GB</span> so it comes as fewer zips.
                   Click <span className="ui">Create export</span>.
                 </li>
@@ -458,13 +518,15 @@ export default function Page() {
               </p>
               <Ol>
                 <li>
-                  In Obsidian&rsquo;s left sidebar, expand <span className="path">vault → 01_INBOX</span>{" "}
-                  and <strong>right-click</strong> the <span className="path">To Process</span> folder.
+                  In Obsidian&rsquo;s left sidebar, expand <span className="path">01_INBOX</span> and{" "}
+                  <strong>right-click</strong> the <span className="path">To Process</span> folder.
                 </li>
                 <li>
-                  Choose <span className="ui">Show in system explorer</span> (on a Mac it may read{" "}
-                  <span className="ui">Reveal in Finder</span>). A Finder window opens with{" "}
-                  <span className="path">To Process</span> highlighted.
+                  Choose <span className="ui">Show in system explorer</span>. A Finder window opens
+                  with <span className="path">To Process</span> highlighted. (Don&rsquo;t see that
+                  menu item? No problem — in Finder go to{" "}
+                  <span className="path">Documents → Writing Vault → vault → 01_INBOX → To Process</span>{" "}
+                  by hand.)
                 </li>
                 <li>
                   Double-click <span className="path">To Process</span> so you&rsquo;re inside it (the
@@ -497,11 +559,21 @@ export default function Page() {
             eyebrow="Phase 4 · Claude works, you supervise"
             title="Bring the writing into the vault"
             intro={
-              <p>
-                Four prompts, in order. Copy each one into Claude (the Code tab, Writing Vault
-                selected), press Enter, and let it run. Read what it reports back before moving to
-                the next.
-              </p>
+              <>
+                <p>
+                  Four prompts, in order. Copy each one into Claude (Code tab, Writing Vault
+                  selected), press Enter, and let it run. Read what it reports back before moving
+                  to the next. Every one of these has been run end-to-end on a test archive; they
+                  work without installing anything.
+                </p>
+                <p>
+                  <strong>One setting first:</strong> next to the send button there&rsquo;s a mode
+                  selector (it probably says <span className="ui">Manual</span>). Switch it to{" "}
+                  <span className="ui">Accept edits</span> for this phase. Claude will still ask
+                  before running commands, but won&rsquo;t stop for every single file it writes —
+                  otherwise you&rsquo;d be clicking Allow hundreds of times.
+                </p>
+              </>
             }
           >
             <Step id="s12" number="12" title="Prompt 0 — check that everything arrived" time="Claude: 1 min">
@@ -512,16 +584,17 @@ export default function Page() {
               </p>
               <Prompt>
                 {`Look inside vault/01_INBOX/To Process/My Writing and tell me what's there. I want:
-- how many .docx files, how many .doc files, and how many other files (by type), for each subfolder
-- the total number of Word documents
+- for the Word folder and the Google folder separately: how many .docx files, how many .doc files, and how many other files (by type)
+- the total number of Word documents overall
 - the oldest and newest file dates you can see
 Don't change, move, or convert anything yet — just report.`}
               </Prompt>
               <p>
-                Does the Word total roughly match your count from step 9? If it&rsquo;s way off,
-                the copy probably didn&rsquo;t finish or the folder went somewhere else — tell
-                Claude: <em>&ldquo;I expected about 2,300 Word files. Help me figure out where the
-                rest are.&rdquo;</em> If it matches (give or take a few), carry on.
+                Does the <strong>Word folder</strong> total roughly match your Finder count from
+                step 9? A few off is fine (Finder counted the folder itself and any stray files).
+                If it&rsquo;s way off, the copy probably didn&rsquo;t finish or the folder went
+                somewhere else — tell Claude: <em>&ldquo;I expected about 2,300 Word files. Help me
+                figure out where the rest are.&rdquo;</em> If it matches, carry on.
               </p>
             </Step>
 
@@ -529,37 +602,39 @@ Don't change, move, or convert anything yet — just report.`}
               <p>
                 Word and Google files are locked-up formats. This asks Claude to turn each one into
                 a plain-text Markdown file (which Obsidian can search) while keeping every original
-                untouched. It&rsquo;s the longest-running step; the batch reports let you watch it
-                move.
+                untouched — using only what&rsquo;s already on your Mac. It&rsquo;s the longest-running
+                step; the batch reports let you watch it move.
               </p>
               <Prompt>
                 {`In vault/01_INBOX/To Process/My Writing there are Word documents (.docx, and possibly older .doc files) and a Google Takeout export of my Google Docs (also .docx). This is years of my writing.
 
 Please:
-1. Convert every document to a Markdown (.md) file. For .docx use pandoc — tell me you're installing it, then install it. For old .doc files, use the Mac's built-in textutil command to convert them to .docx first (on Windows, install LibreOffice and use it) — again, tell me before installing anything.
-2. Keep each file's original title as its filename.
-3. At the top of each .md file add frontmatter with: title, date (best guess from the file's dates or the text itself), word_count, source (word or google), and original_path.
-4. File the .md files in vault/02_SOURCES/Writing/, in subfolders by year (put anything undated in vault/02_SOURCES/Writing/undated/).
-5. Move the untouched originals into vault/02_SOURCES/Writing/_originals/ so nothing is lost. Do not modify or delete any original.
-6. Skip anything that isn't my writing (spreadsheets, PDFs, images) — move those to vault/01_INBOX/To Process/_skipped/ and list them.
-7. Work in batches of about 25 files and give me a one-line progress report after each batch: "Batch 12 done — 300 of 2,314 converted."
-8. If I run this again later with new files in the inbox, only process what's still in the inbox — never redo files that are already in 02_SOURCES/Writing/.
+1. Convert every document to a Markdown (.md) file. Use only tools already on this Mac — textutil (built in) converts .doc and .docx, and you can write a small Python script if you need to. Do NOT install Homebrew or anything that would ask me for a password. If you truly can't proceed without installing something, stop and tell me what and why first.
+2. Do a dry run first: show me the plan (how many files, where they'll go) and wait for me to say "go" before moving anything.
+3. Keep each file's original filename as the title (just change the ending to .md). Keep headings and paragraphs.
+4. At the top of each .md file add frontmatter with: title, date, date_source, word_count, source (word or google), and original_path. For the date: use a "Written ..." line or a clear date near the top of the text if there is one; otherwise the document's own date. In date_source just say in plain words which you used (e.g. "Written line in the text" or "file date").
+5. File the .md files in vault/02_SOURCES/Writing/, in subfolders by year. If the only date you can find is a file date from this year (that's just when I copied it), treat it as undated and put it in vault/02_SOURCES/Writing/undated/. If two files would get the same name in the same year, add (2), (3) — never overwrite.
+6. Move the untouched originals into vault/02_SOURCES/Writing/_originals/ (keep their folder structure) so nothing is lost. Never modify or delete an original.
+7. Anything that isn't my writing (spreadsheets, PDFs, images, web pages) — move it to vault/01_INBOX/To Process/_skipped/ and list it for me.
+8. Work in batches of about 25 files and give me a one-line progress report after each batch, like: "Batch 3 done — 75 of 2,314 converted." (If I only have a few dozen files there'll only be a couple of lines — that's fine.)
+9. Save the script you write in tools/ so we can run it again later. If I run it again with new files in the inbox, only process what's still in the inbox — never redo files already in 02_SOURCES/Writing/.
 
-When you're done, tell me: how many files you converted, how many you skipped, and any you couldn't read. Then confirm the inbox folder is empty.`}
+When you're done, tell me: how many files you converted, how many you skipped (and list them), any you couldn't read, and confirm the My Writing folder is now empty. Then save an undo point with git.`}
               </Prompt>
               <Callout tone="tip" title="While it runs">
-                Leave the app open and go do something else. If Claude stops to ask a question
-                (usually &ldquo;OK to install pandoc?&rdquo;), answer it and it continues. If it
-                stops without finishing, type <em>&ldquo;keep going&rdquo;</em>. If it says it hit a
-                usage limit, wait for the reset time it gives you, then <em>&ldquo;keep going&rdquo;</em> —
-                it picks up where it left off because it only processes what&rsquo;s still in the
-                inbox.
+                Claude shows the plan and waits for you to type <em>go</em>. Then leave the app
+                open and go do something else. If it stops to ask a question, answer it and it
+                continues. If it stops without finishing, type <em>&ldquo;keep going&rdquo;</em>. If
+                it says it hit a usage limit, wait for the reset time it gives you, then{" "}
+                <em>&ldquo;keep going&rdquo;</em> — it picks up where it left off, because it only
+                processes what&rsquo;s still in the inbox.
               </Callout>
               <Callout tone="tip" title="How you know it worked">
-                In Obsidian, expand <span className="path">vault → 02_SOURCES → Writing</span>. You
-                should see year folders, and inside them your pieces as ordinary readable notes.
-                Click one. If it opens and reads like your document, you&rsquo;re done. The Word
-                originals are safe in <span className="path">_originals</span>.
+                In Obsidian, expand <span className="path">02_SOURCES → Writing</span>. You should
+                see year folders, and inside them your pieces as ordinary readable notes. Click one.
+                If it opens and reads like your document, you&rsquo;re done. The Word originals are
+                safe in <span className="path">02_SOURCES → Writing → _originals</span> — they didn&rsquo;t
+                disappear, they moved.
               </Callout>
             </Step>
 
@@ -572,9 +647,9 @@ When you're done, tell me: how many files you converted, how many you skipped, a
               <Prompt>
                 {`Read every file in vault/02_SOURCES/Writing/ and build a page at vault/00_HOME/Writing Index.md.
 
-Make it a table with one row per piece: title (linked to the file), date, word count, 3–5 topic tags, and a one-sentence summary of what it's about. Sort newest first.
+Make it a table with one row per piece: title (linked to the file), date, word count, topic tags, and a one-sentence summary of what it's about. Sort newest first.
 
-Also add tags to each source file's frontmatter (a "tags:" list) using a consistent, short vocabulary — reuse the same tag names across files rather than inventing new ones each time. When you're done, show me the full list of tags you used and how many pieces have each one.`}
+Also add a "tags:" list to each source file's frontmatter — that's fine, it's metadata at the top of the file, not my text. Use a small, consistent vocabulary of about 15 tags total: each piece gets its main subject plus whatever else genuinely applies (usually 2–5). Reuse the same tag names rather than inventing new ones. When you're done, show me the full list of tags with how many pieces have each one, and save an undo point with git.`}
               </Prompt>
               <p>
                 Open <span className="path">00_HOME → Writing Index</span> in Obsidian. This is
@@ -585,16 +660,16 @@ Also add tags to each source file's frontmatter (a "tags:" list) using a consist
             <Step id="s15" number="15" title="Prompt 3 — let the vault find your themes" time="Claude: 15–45 min">
               <p>
                 This is where it stops being a filing cabinet. The kit ships with skills for
-                exactly this: <span className="path">/diarize</span> builds a page about one subject
-                from every source that mentions it; <span className="path">/emerge</span> looks for
+                exactly this: <span className="path">diarize</span> builds a page about one subject
+                from every source that mentions it; <span className="path">emerge</span> looks for
                 patterns nobody named.
               </p>
               <Prompt>
-                {`Using the Writing Index and the tags, tell me the 10 subjects or themes I return to most often across all my writing, with a rough count and date range for each.
+                {`Using the Writing Index and the tags, tell me the 10 subjects I write about most often across all my writing, with a rough count and date range for each. (Subjects — not recurring phrases or people's names, unless a person really is the subject.)
 
-Then, for the top 5, run /diarize on each one to build a canon page in vault/04_CANON/Themes/. Each page should describe the theme, how my thinking about it changed over time, and quote or link the specific pieces where it shows up. Every claim should link back to a source file.
+Then, for the top 5, run the diarize routine (vault/.claude/commands/diarize.md) on each one to build a canon page in vault/04_CANON/Practice/Themes/ — the vault's usual place for themes. Skip the web-search step; these are my private essays. Each page should describe the theme, how my thinking about it changed over time, and quote or link the specific pieces where it shows up. Every claim should link back to a source file.
 
-Finally, run /emerge once and tell me what patterns you found that I might not have noticed.`}
+Finally, run the emerge routine (vault/.claude/commands/emerge.md) once and tell me what patterns you found that I might not have noticed. Then save an undo point with git.`}
               </Prompt>
               <Callout tone="why">
                 The vault has a rule: <em>sources are never modified; synthesis lives on separate
@@ -667,17 +742,20 @@ Pull the best three paragraphs I've ever written about New York into one file so
 I want to write a new essay about X. What have I already said about it, and what haven't I said yet?`}
               </Prompt>
               <p>Two habits that keep the vault healthy, straight from the kit&rsquo;s authors:</p>
-              <Ul>
-                <li>
-                  At the end of a working session, type <span className="path">/recap</span>. Claude
-                  writes a dated note of what changed, so next time you can ask &ldquo;where was
-                  I?&rdquo;
-                </li>
-                <li>
-                  About once a week, type <span className="path">/vault-lint</span>. It checks for
-                  broken links, duplicates and stray files, and offers to fix them.
-                </li>
-              </Ul>
+              <p><strong>At the end of a working session:</strong></p>
+              <Prompt>{`Write a recap of this session to the log — the recap routine (vault/.claude/commands/recap.md). Then save an undo point with git.`}</Prompt>
+              <p>
+                Claude writes a dated note of what changed at the top of{" "}
+                <span className="path">00_HOME → Log</span>, so next time you can ask &ldquo;where was
+                I?&rdquo;
+              </p>
+              <p><strong>About once a week:</strong></p>
+              <Prompt>{`Run the vault health check — the vault-lint routine (vault/.claude/commands/vault-lint.md). Tell me which findings are real problems versus template noise, and fix the 3 real ones. Then save an undo point with git.`}</Prompt>
+              <p>
+                It checks for broken links, duplicates and stray files. The first run always finds
+                a lot; most of it is scaffolding, which is why the prompt asks Claude to sort real
+                from noise.
+              </p>
               <Callout tone="tip" title="New writing">
                 Whenever you finish a new piece, drop the file into{" "}
                 <span className="path">01_INBOX/To Process</span> and tell Claude &ldquo;new
@@ -733,6 +811,22 @@ I want to write a new essay about X. What have I already said about it, and what
                       enough to try everything. Do a small batch first if the full run feels
                       overwhelming.
                     </li>
+                    <li>
+                      <strong>&ldquo;Where did my Word files go?&rdquo;</strong> — they moved, they
+                      didn&rsquo;t vanish: <span className="path">02_SOURCES → Writing → _originals</span>.
+                      Anything Claude decided wasn&rsquo;t writing is in{" "}
+                      <span className="path">01_INBOX → To Process → _skipped</span>.
+                    </li>
+                    <li>
+                      <strong>Claude keeps asking me to drop one file</strong> — that&rsquo;s the
+                      built-in onboarding. Paste the &ldquo;skip the single-file step&rdquo; line
+                      from step 8.
+                    </li>
+                    <li>
+                      <strong>Page links look broken in Obsidian</strong> — you probably opened the
+                      outer folder. Close it and open the inner <span className="path">vault</span>{" "}
+                      folder instead (step 6).
+                    </li>
                   </Ul>
                 </div>
                 <div>
@@ -760,8 +854,9 @@ I want to write a new essay about X. What have I already said about it, and what
               <div className="mt-8 border-t border-rule pt-6">
                 <h4 className="font-semibold text-ink">Go deeper</h4>
                 <p className="prose-guide mt-2 text-[14.5px] leading-relaxed text-ink-soft">
-                  Inside your vault folder are three guides written by the kit&rsquo;s authors — open
-                  them in Obsidian: <span className="path">RECIPES.md</span> (24 things to try, each
+                  In the outer <span className="path">Writing Vault</span> folder are three guides
+                  written by the kit&rsquo;s authors — double-click to read, or ask Claude &ldquo;show
+                  me RECIPES.md&rdquo;: <span className="path">RECIPES.md</span> (24 things to try, each
                   with input → prompt → result), <span className="path">Standard Operating Procedure.md</span>{" "}
                   (daily and weekly routines), and <span className="path">Data Sources to Gather.md</span>{" "}
                   (what else you could bring in — photos, email, old chats).
