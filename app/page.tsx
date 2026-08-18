@@ -14,6 +14,7 @@ const NAV = [
   { id: "ingest", label: "4 · Bring it into the vault" },
   { id: "use", label: "5 · Search, sort, find topics" },
   { id: "stuck", label: "6 · When you get stuck" },
+  { id: "organize", label: "7 · Organizing & searching" },
 ];
 
 const TOTAL_STEPS = 17;
@@ -611,7 +612,7 @@ Don't change, move, or convert anything yet — just report.`}
 Please:
 1. Convert every document to a Markdown (.md) file. Use only tools already on this Mac — textutil (built in) converts .doc and .docx, and you can write a small Python script if you need to. Do NOT install Homebrew or anything that would ask me for a password. If you truly can't proceed without installing something, stop and tell me what and why first.
 2. Do a dry run first: show me the plan (how many files, where they'll go) and wait for me to say "go" before moving anything.
-3. Keep each file's original filename as the title (just change the ending to .md). Keep headings and paragraphs.
+3. Keep each file's original filename as the title (just change the ending to .md). Keep headings, paragraphs AND line breaks — some of these are poems, and a line break inside a stanza must stay a line break (in Markdown that means two spaces at the end of the line). Test this on a poem before doing the whole batch.
 4. At the top of each .md file add frontmatter with: title, date, date_source, word_count, source (word or google), and original_path. For the date: use a "Written ..." line or a clear date near the top of the text if there is one; otherwise the document's own date. In date_source just say in plain words which you used (e.g. "Written line in the text" or "file date").
 5. File the .md files in vault/02_SOURCES/Writing/, in subfolders by year. If the only date you can find is a file date from this year (that's just when I copied it), treat it as undated and put it in vault/02_SOURCES/Writing/undated/. If two files would get the same name in the same year, add (2), (3) — never overwrite.
 6. Move the untouched originals into vault/02_SOURCES/Writing/_originals/ (keep their folder structure) so nothing is lost. Never modify or delete an original.
@@ -635,6 +636,17 @@ When you're done, tell me: how many files you converted, how many you skipped (a
                 If it opens and reads like your document, you&rsquo;re done. The Word originals are
                 safe in <span className="path">02_SOURCES → Writing → _originals</span> — they didn&rsquo;t
                 disappear, they moved.
+              </Callout>
+              <Callout tone="note" title="Poems: check one now">
+                Open a poem in Obsidian. Are the lines still separate lines? If two got squashed into
+                one, tell Claude: <em>&ldquo;Some poem lines merged. Fix the converter so soft line
+                breaks are kept, and redo just the poems.&rdquo;</em> (This happened once in testing;
+                Claude fixed it in one go.)
+              </Callout>
+              <Callout tone="tip" title="Want folders by kind — Poems, Essays, Journal?">
+                Now is the moment, before the index. Jump to{" "}
+                <a href="#organize">section 7</a> and run the &ldquo;sort by kind&rdquo; prompt, then
+                come back to Prompt 2.
               </Callout>
             </Step>
 
@@ -871,6 +883,188 @@ I want to write a new essay about X. What have I already said about it, and what
                   </LinkButton>
                 </Links>
               </div>
+            </div>
+          </Section>
+
+
+          {/* ---------- 7 · ORGANIZE & SEARCH ---------- */}
+          <Section
+            id="organize"
+            eyebrow="Phase 7 · what it can and can’t do"
+            title="Organizing your writing, and searching the deep past"
+            intro={
+              <p>
+                Once the writing is in, this is what to ask for, what to expect back, and where the
+                edges are. Everything here was tried on a test archive of essays and poems.
+              </p>
+            }
+          >
+            <div className="rounded-2xl border border-rule bg-card p-6 sm:p-8">
+              <h3 className="font-serif text-xl font-medium text-ink">Who does what</h3>
+              <p className="prose-guide mt-2 text-[15.5px] leading-relaxed text-ink-soft">
+                Obsidian doesn&rsquo;t read or sort anything — it&rsquo;s the window and the search box.{" "}
+                <strong>Claude does the reading</strong>: it can open every piece, decide what it is
+                and what it&rsquo;s about, make folders, add tags, write pages, and answer questions.
+                Anything Claude organizes shows up in Obsidian a second later, and you can drag things
+                around yourself if you disagree with a call.
+              </p>
+              <p className="prose-guide mt-3 text-[15.5px] leading-relaxed text-ink-soft">
+                The one design idea to hold onto: <strong>folders for <em>kind</em>, tags for{" "}
+                <em>theme</em>.</strong> A piece is one thing (a poem) but about many things (your
+                mother, Brooklyn, leaving). Folders can only hold a piece in one place; tags can mark
+                it with ten. So kinds become folders, and themes become tags plus theme pages.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-rule bg-card p-6 sm:p-8">
+              <h3 className="font-serif text-xl font-medium text-ink">Folders by kind — Poems, Essays, Journal, Drafts</h3>
+              <p className="prose-guide mt-2 text-[15.5px] leading-relaxed text-ink-soft">
+                Best run right after Prompt 1 (before the index), but it works any time — Claude
+                updates the links if pages already point at the files. Change the list of kinds to
+                whatever fits your writing.
+              </p>
+              <Prompt>
+                {`Sort my writing by kind. Read every file in vault/02_SOURCES/Writing/ (not _originals) and decide what each one is: Poem, Essay, Journal, Draft, or Other. Rules: judge by the writing itself, not just the filename. If a piece is a poem that's also a draft, it goes in Poems (kind: Poem, plus a "status: draft" line) — kind wins over status. Anything you're not sure about, tell me and take your best guess.
+
+Then move each .md into a subfolder by kind — vault/02_SOURCES/Writing/Poems/, Essays/, Journal/, Drafts/, Other/ — keeping the year folder inside (e.g. Poems/2015/Kettle.md). Add a "kind:" line to each file's frontmatter. Leave _originals exactly where it is. If any page in the vault links to a file you moved, update the link.
+
+Also update the import script in tools/ so that next time I bring in new files it sorts them by kind the same way.
+
+When you're done, show me the counts per kind and the list of anything you weren't sure about, then save an undo point with git.`}
+              </Prompt>
+              <p className="prose-guide mt-2 text-[15.5px] leading-relaxed text-ink-soft">
+                In testing, Claude sorted 44 pieces into Essays 34 / Poems 5 / Drafts 5 in one pass,
+                explained its reasoning (poems: short, lineated, stanza breaks; essays: prose
+                paragraphs), and listed four borderline calls for the writer to decide. That
+                &ldquo;not sure&rdquo; list is the part to read.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-rule bg-card p-6 sm:p-8">
+              <h3 className="font-serif text-xl font-medium text-ink">Themes — tags and theme pages</h3>
+              <p className="prose-guide mt-2 text-[15.5px] leading-relaxed text-ink-soft">
+                Prompt 2 already tags every piece and Prompt 3 builds theme pages for the top five.
+                From there:
+              </p>
+              <Ul>
+                <li>
+                  <strong>See everything on a theme, instantly:</strong> in Obsidian, click any tag
+                  (e.g. <span className="path">#grief</span>) — or open the Tags pane on the right —
+                  and every piece with that tag lists, across all kinds and years. That&rsquo;s your
+                  &ldquo;folder&rdquo; for a theme, without moving anything.
+                </li>
+                <li>
+                  <strong>More theme pages:</strong> <em>&ldquo;Build a theme page for #brooklyn the
+                  same way you did the others.&rdquo;</em>
+                </li>
+                <li>
+                  <strong>A theme you name yourself:</strong> <em>&ldquo;I think there&rsquo;s a thread
+                  about silence in my work that no tag captures. Read everything, find it, tag it
+                  #silence, and write me the page.&rdquo;</em>
+                </li>
+                <li>
+                  <strong>Re-tag with your own vocabulary:</strong> <em>&ldquo;Rename #new-york to
+                  #nyc everywhere and merge #brooklyn into it.&rdquo;</em>
+                </li>
+              </Ul>
+            </div>
+
+            <div className="rounded-2xl border border-rule bg-card p-6 sm:p-8">
+              <h3 className="font-serif text-xl font-medium text-ink">What you can ask — real examples</h3>
+              <p className="prose-guide mt-2 text-[15.5px] leading-relaxed text-ink-soft">
+                All of these work today. Claude searches for likely words, reads the candidates,
+                and answers with links you can click straight into the file.
+              </p>
+              <Prompt label="Finding things">
+                {`Find everything I've written about my mother. She's "Mom", "Ma", "my mother", and sometimes just "the kitchen". Give me the passages, each with a link to the file and its date, oldest first.
+
+Which pieces from 2012 to 2016 mention the apartment on Graham Avenue?
+
+I wrote a paragraph once about a letter I never sent. Find it — it might be in an essay or a poem.
+
+Show me every poem that mentions light. Which image comes up most often across the poems?`}
+              </Prompt>
+              <Prompt label="Sorting and comparing">
+                {`List my essays longest to shortest with word counts.
+
+Which years was I most productive? Give me a table: year, number of pieces, total words.
+
+I have three versions of "The Pitch". Show me the differences between them and tell me what changed in how I told it.
+
+Group all my journal entries by season and tell me what I tend to write about in winter versus summer.`}
+              </Prompt>
+              <Prompt label="Seeing patterns">
+                {`How did the way I write about leaving change between my twenties and now? Quote the evidence.
+
+Which people appear across the most pieces? Make a page for each of the top five with every place they show up.
+
+Read all my drafts. Which three are closest to finished, and what would each need?
+
+I want to write a new essay about running. What have I already said, and what haven't I said yet?`}
+              </Prompt>
+              <Prompt label="Making things from it">
+                {`Pull my best three paragraphs about New York into one file so I can reread them together.
+
+Make me a chronological reading list of everything about my father — a page with links, one line on each.
+
+Draft a 300-word bio of me as a writer, using only what's actually in the vault. Cite the pieces you drew from.`}
+              </Prompt>
+            </div>
+
+            <div className="rounded-2xl border border-amber/40 bg-amber-soft p-6 sm:p-8">
+              <h3 className="font-serif text-xl font-medium text-ink">The honest limits</h3>
+              <Ul>
+                <li>
+                  <strong>Claude searches by words first, then reads.</strong> It does not have a
+                  magic index of every sentence. If you ask about your mother and a piece only ever
+                  says &ldquo;the woman who raised me&rdquo;, a quick search will miss it. Two fixes:
+                  give Claude the aliases (as in the example above), or ask for an exhaustive pass —{" "}
+                  <em>&ldquo;read every piece from 2010 to 2015 in full and…&rdquo;</em> — which is
+                  slower and uses more of your plan, but is thorough. For a few hundred pieces this is
+                  fine; for thousands, ask a year-range at a time.
+                </li>
+                <li>
+                  <strong>The better the index and tags, the better the deep search.</strong> Claude
+                  uses the Writing Index, tags and theme pages as its map. If searches feel thin, ask:{" "}
+                  <em>&ldquo;Add a two-sentence summary to the top of every piece&rdquo;</em> or{" "}
+                  <em>&ldquo;tag every piece with the places it mentions.&rdquo;</em> Each pass makes
+                  the next question sharper.
+                </li>
+                <li>
+                  <strong>Obsidian&rsquo;s own search is exact.</strong> ⌘⇧F finds the word{" "}
+                  <em>father</em>, not <em>dad</em>. It&rsquo;s instant and never wrong about what it
+                  finds — use it when you know the word. Use Claude when you know the meaning.
+                </li>
+                <li>
+                  <strong>Claude&rsquo;s memory is the vault.</strong> Each session starts fresh; it
+                  remembers only what&rsquo;s written in files. &ldquo;The piece I asked about
+                  yesterday&rdquo; works only if yesterday&rsquo;s recap is in the log — hence the
+                  recap habit. The upside: nothing is locked inside a chat; it&rsquo;s all in plain
+                  files you own.
+                </li>
+                <li>
+                  <strong>Repeated refrains count as many hits.</strong> If you reuse a passage across
+                  pieces, a &ldquo;find everything about X&rdquo; will surface it each time. Say{" "}
+                  <em>&ldquo;show me one instance per piece&rdquo;</em> if that&rsquo;s what you want.
+                </li>
+                <li>
+                  <strong>Versions aren&rsquo;t merged.</strong> The same essay in Word (2016) and
+                  Google Docs (2025) becomes two files. That&rsquo;s correct — but ask{" "}
+                  <em>&ldquo;mark older versions of the same piece as superseded&rdquo;</em> if you
+                  want the noise reduced.
+                </li>
+                <li>
+                  <strong>Old-file quirks.</strong> A very old Word file can carry odd characters
+                  (an em-dash that shows as <span className="path">â€”</span>). Claude will flag
+                  these; <em>&ldquo;fix the odd characters in that file&rdquo;</em> handles it.
+                </li>
+                <li>
+                  <strong>Cost.</strong> Filing and indexing hundreds of pieces is cheap. Asking Claude
+                  to <em>read everything</em> to answer one question is where usage goes. Fine on the
+                  Max plan; occasionally limit-hitting on Pro — it tells you when, and{" "}
+                  <em>&ldquo;keep going&rdquo;</em> resumes after the reset.
+                </li>
+              </Ul>
             </div>
           </Section>
 
