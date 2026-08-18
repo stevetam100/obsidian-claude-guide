@@ -28,7 +28,7 @@ export default function Page() {
           A setup guide · Obsidian + Claude
         </p>
         <h1 className="font-serif text-[2.6rem] font-medium leading-[1.05] text-ink sm:text-[3.4rem]">
-          Your writing, <em className="font-light italic">searchable.</em>
+          Christiana&rsquo;s writing, <em className="font-light italic">searchable.</em>
         </h1>
         <p className="mt-5 text-lg leading-relaxed text-ink-soft">
           Step by step, from a blank laptop to a private library of every Word and Google Doc

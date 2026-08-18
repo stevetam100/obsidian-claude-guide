@@ -22,7 +22,7 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Your Writing, Searchable — Obsidian + Claude setup guide",
+  title: "Christiana's Writing, Searchable — Obsidian + Claude setup guide",
   description:
     "A step-by-step guide for a non-technical writer: install Obsidian and Claude, set up the Creator System vault, and pull in years of Word and Google Docs so you can search, sort, and find the topics inside them.",
 };
